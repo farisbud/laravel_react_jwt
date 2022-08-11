@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -13,6 +13,13 @@ function Register(){
     const [validation, setValidation] = useState([]);
 
     const navigate = useNavigate();
+    //membuat middleware
+    // arrow function useEffect
+    useEffect(()=>{
+        if (localStorage.getItem('token')) {
+            navigate('/home');   
+        }
+    },[]);
 
         const registerHandler = async (e) => {
             e.preventDefault();

@@ -81,11 +81,11 @@ class AuthController extends Controller
             return response()->json([
                 'status'=> 400,
                 'errors'=> $validator->messages(),
-            ]);
+            ],422);
 
         }else{
             if (! $token = auth()->attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'tidak ditemukan email dan password'], 401);
             }
         }
         
