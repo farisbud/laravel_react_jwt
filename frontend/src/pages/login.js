@@ -1,6 +1,6 @@
 import  axios  from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login(){
     //useState untuk mengambil value id (string) di input
@@ -80,6 +80,8 @@ function Login(){
                                             }
                                         </div>
                                         <button type="submit" className="btn btn-primary">Submit</button>
+                                        <Link to="/register" className="btn btn-link">Register</Link>
+                                        <Link to="/" className="btn btn-link">Home</Link>
                                     </form>
                                 </div>
                             </div>

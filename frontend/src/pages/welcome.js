@@ -17,8 +17,8 @@ function Welcome(){
                                     Whether you are new to the framework or have previous experience with Laravel, 
                                     we recommend reading all of the documentation from beginning to end. </p>
                             
-                                    <Link to="login" className="btn btn-primary me-2">Login</Link>
-                                    <Link to="register" className="btn btn-primary">Register</Link>
+                                    <Link to="/login" className="btn btn-primary me-2">Login</Link>
+                                    <Link to="/register" className="btn btn-primary">Register</Link>
                                 </div>
                             </div>
                         </div>

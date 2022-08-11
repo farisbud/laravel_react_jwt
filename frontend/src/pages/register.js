@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Register(){
@@ -98,6 +98,8 @@ function Register(){
                                             <input type="password" className="form-control" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
                                         </div>
                                         <button type="submit" className="btn btn-primary">Submit</button>
+                                        <Link to="/login" className="btn btn-link">Login</Link>
+                                        <Link to="/" className="btn btn-link">Home</Link>
                                     </form>
                                 </div>
                             </div>
