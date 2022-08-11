@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Welcome(){
     return (
@@ -15,6 +16,9 @@ function Welcome(){
                                     <p>Laravel has wonderful, thorough documentation covering every aspect of the framework. 
                                     Whether you are new to the framework or have previous experience with Laravel, 
                                     we recommend reading all of the documentation from beginning to end. </p>
+                            
+                                    <Link to="login" className="btn btn-primary me-2">Login</Link>
+                                    <Link to="register" className="btn btn-primary">Register</Link>
                                 </div>
                             </div>
                         </div>
