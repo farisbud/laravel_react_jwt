@@ -40,7 +40,7 @@ class AuthController extends Controller
                 'errors' => $validator->messages(),
                 //'message'=> 'gagal menambahkan data produk',
     
-            ]);           
+            ],422);           
 
         }else{
 
@@ -75,6 +75,7 @@ class AuthController extends Controller
         ],$messages);
 
         $credentials = request(['email', 'password']);
+
         if($validator->fails()){
 
             return response()->json([
