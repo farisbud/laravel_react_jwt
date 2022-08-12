@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-   
+
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);
@@ -39,19 +39,19 @@ class AuthController extends Controller
                 'status' => 400,
                 'errors' => $validator->messages(),
                 //'message'=> 'gagal menambahkan data produk',
-    
-            ],422);           
+
+            ],422);
 
         }else{
 
             User::create([
-                
+
                 'name'=>request('name'),
                 'email' => request('email'),
                 'password' => Hash::make(request('password')),
                 'remember_token' => Str::random(60),
             ]);
-            
+
             return response()->json([
                 'status' => 200,
                 'message' => 'berhasil membuat akun',
@@ -78,17 +78,17 @@ class AuthController extends Controller
 
         if($validator->fails()){
 
-            return response()->json([
-                'status'=> 400,
-                'errors'=> $validator->messages(),
-            ],422);
+            return response()->json($validator->messages(),422);
 
         }else{
             if (! $token = auth()->attempt($credentials)) {
-                return response()->json(['error' => 'tidak ditemukan email dan password'], 401);
+                return response()->json([
+                    'status' => 402,
+                    'error' => 'tidak ditemukan email dan password'
+                ], 401);
             }
         }
-        
+
 
         return $this->respondWithToken($token);
     }

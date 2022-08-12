@@ -32,10 +32,9 @@ function Login(){
             localStorage.setItem("token", response.data.access_token);
             navigate('/home');
         }).catch((err) =>{
-            setValidation(err.response.data.errors);
-
-            //set validasi untuk error jika email dan password tidak ditemukan
+       //set validasi untuk error jika email dan password tidak ditemukan dan jika mengkosongkan email dan password
             setValidation(err.response.data);
+            
         })
     }
 

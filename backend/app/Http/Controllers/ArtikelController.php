@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+Use App\Models\Artikel;
+use Illuminate\Support\Facades\Validator;
 
 class ArtikelController extends Controller
 {
@@ -34,6 +37,39 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'required' => ':attribute wajib diisi cuy!!!',
+        ];
+
+        $validator = Validator::make(request()->all(),[
+            'judul' => 'required',
+            'deskripsi'=> 'required',
+        ],$messages);
+
+        if($validator->fails()){
+
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+                //'message'=> 'gagal menambahkan data produk',
+
+            ],422);
+
+        }else{
+
+            $user = auth()->users();
+
+            $artikel = $user->artikel()->create([
+                'judul' => $request->judul,
+                'deskripsi' => $request->deskripsi
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'berhasil membuat artikel',
+                'data' =>$artikel,
+            ]);
+        }
         //
     }
 
