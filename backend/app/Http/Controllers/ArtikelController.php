@@ -14,8 +14,19 @@ class ArtikelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
+        $artikel = Artikel::latest()->get();
+        return response()->json([
+            'status'=> true,
+            'message' => "berhasil menampilkan artikel terbaru",
+            'data'=> $artikel,
+        ]);
         //
     }
 
@@ -57,7 +68,7 @@ class ArtikelController extends Controller
 
         }else{
 
-            $user = auth()->users();
+            $user = auth()->user();
 
             $artikel = $user->artikel()->create([
                 'judul' => $request->judul,
@@ -67,7 +78,7 @@ class ArtikelController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'berhasil membuat artikel',
-                'data' =>$artikel,
+                'data' => $artikel,
             ]);
         }
         //
@@ -81,6 +92,13 @@ class ArtikelController extends Controller
      */
     public function show($id)
     {
+        $artikel = Artikel::findOrFail($id);
+
+        return response()->json([
+            'status'=> true,
+            'message' => "berhasil menampilkan artikel berdasarkan id",
+            'data'=> $artikel,
+        ]);
         //
     }
 
@@ -104,6 +122,42 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $messages = [
+            'required' => ':attribute wajib diisi cuy!!!',
+        ];
+
+        $validator = Validator::make(request()->all(),[
+            'judul' => 'required',
+            'deskripsi'=> 'required',
+        ],$messages);
+
+        if($validator->fails()){
+
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+                //'message'=> 'gagal menambahkan data produk',
+
+            ],422);
+
+        }else{
+
+            // $artikel = Artikel::where('id', $id)->update([
+            //     'judul' => $request->judul,
+            //     'deskripsi'=> $request->deskripsi
+            // ]);
+
+                $artikel = Artikel::findOrFail($id);
+                $artikel->judul = $request->judul;
+                $artikel->deskripsi = $request->deskripsi;
+                $artikel->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'berhasil membuat artikel',
+                'data' => $artikel,
+            ]);
+        }
         //
     }
 
@@ -115,6 +169,27 @@ class ArtikelController extends Controller
      */
     public function destroy($id)
     {
+        $artikel = Artikel::findOrFail($id);
+
+       try {
+
+        $artikel->delete();
+
+       } catch (\Throwable $th) {
+
+        return response()->json([
+            'status' => false,
+            'message'=> 'Data produk gagal dihapus, karena data masih digunakan diperhitungan SAW'
+        ]);
+
+       }
+
+        return response()->json([
+            'status' => true,
+            'message'=> 'Data produk berhasil dihapus'
+        ]);
         //
     }
+        //
+
 }

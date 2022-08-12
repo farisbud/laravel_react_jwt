@@ -29,4 +29,9 @@ Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
 
 });
 
-Route::apiResource('artikel', ArtikelController::class);
+// Route::apiResource('artikel', ArtikelController::class);
+Route::get('artikel',[ArtikelController::class,'index']);
+Route::post('artikel',[ArtikelController::class,'store']);
+Route::get('artikel/{id}',[ArtikelController::class,'show']);
+Route::put('artikel/{id}',[ArtikelController::class,'update']);
+Route::delete('artikel/{id}',[ArtikelController::class, 'destroy']);
