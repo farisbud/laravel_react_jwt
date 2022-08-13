@@ -44,7 +44,7 @@ function Login(){
             <div className="d-flex align-items-center" style={{ height: '100vh' }}>
                 <div style={{ witdh: '100%' }}>
                     <div className="row justify-content-center" >
-                        <div className="col-md-10">
+                        <div className="col-md-6">
                             <div className="card">
                                 <div className="card-header">Login</div>
                                 <div className="card-body">
@@ -78,6 +78,9 @@ function Login(){
                                                 )
                                             }
                                         </div>
+                                        <p>Laravel has wonderful, thorough documentation covering every aspect of the framework. 
+                                    Whether you are new to the framework or have previous experience with Laravel, 
+                                    we recommend reading all of the documentation from beginning to end. </p>
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                         <Link to="/register" className="btn btn-link">Register</Link>
                                         <Link to="/" className="btn btn-link">Home</Link>

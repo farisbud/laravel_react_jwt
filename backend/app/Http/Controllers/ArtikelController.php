@@ -14,10 +14,6 @@ class ArtikelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -146,8 +142,16 @@ class ArtikelController extends Controller
             //     'judul' => $request->judul,
             //     'deskripsi'=> $request->deskripsi
             // ]);
-
+                $user = auth()->user();
                 $artikel = Artikel::findOrFail($id);
+
+                if ($user->id != $artikel->user_id) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'kamu bukan pemilik artikel',
+                    ],403);
+                }
+
                 $artikel->judul = $request->judul;
                 $artikel->deskripsi = $request->deskripsi;
                 $artikel->save();
@@ -169,7 +173,16 @@ class ArtikelController extends Controller
      */
     public function destroy($id)
     {
+
+        $user = auth()->user();
         $artikel = Artikel::findOrFail($id);
+
+        if ($user->id != $artikel->user_id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'kamu bukan pemilik artikel',
+            ],403);
+        }
 
        try {
 
@@ -188,7 +201,6 @@ class ArtikelController extends Controller
             'status' => true,
             'message'=> 'Data produk berhasil dihapus'
         ]);
-        //
     }
         //
 
